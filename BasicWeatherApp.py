@@ -18,7 +18,7 @@ city_text = StringVar()
 city_entry = Entry(win, textvariable=city_text, font={'bold', 25})
 location_label = Label(win, text="Location", font={'bold', 28}, fg="black", bg="#D3A8AE")
 temp_label = Label(win, text="", font={'bold', 28}, fg="black", bg="#D3A8AE")
-weather_l = Label(win, text="", font={'bold', 28}, fg="black", bg="#D3A8AE")
+weather_label = Label(win, text="", font={'bold', 28}, fg="black", bg="#D3A8AE")
 # search_btn = Button(win, text="GET WEATHER RESULTS", width=20, command=search_city)
 
 
@@ -54,21 +54,31 @@ def search_city():
     if weather_details:
         location_label['text'] = '{}, {}'.format(weather_details[0], weather_details[1])
         temp_label['text'] = str(weather_details[3]) + " Degree Celsius"
-        weather_l['text'] = weather_details[4]
+        weather_label['text'] = weather_details[4]
     else:
         messagebox.showerror("Error", "Cannot find {}".format(cityname))
     
 
-search_btn = Button(win, text="GET WEATHER RESULTS", width=20, command=search_city, bg="#D3A8AE", fg="white")
+def clear_values():
+    city_entry.delete(0, END)
+    location_label["text"] = ""
+    temp_label["text"] = ""
+    weather_label["text"] = ""
 
+
+
+
+search_btn = Button(win, text="GET WEATHER RESULTS", width=20, command=search_city, bg="#D3A8AE", fg="white")
+reset_btn = Button(win, text="RESET", width=20, command=clear_values, bg="#D3A8AE", fg="white")
 
 #arranging widgets on window
 title_label.place(x=250, y=20, anchor=CENTER)
 city_label.place(x =50, y=50)
 city_entry.place(x=200, y=50)
-search_btn.place(x=250, y=100, anchor=CENTER)
+reset_btn.place(x=250, y=100, anchor=CENTER)
+search_btn.place(x=550, y=100, anchor=CENTER)
 location_label.place(x=20, y=150)
 temp_label.place(x=20, y=180)
-weather_l.place(x=20, y=200)
+weather_label.place(x=20, y=200)
 
 win.mainloop()
